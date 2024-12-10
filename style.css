@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: url(/img/Crepusculo.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.contenedor{
+    text-align: center;
+}
+
+h1{
+    text-shadow: 2px 2px 15px rgb(255, 255, 255);
+    font-size: 4rem;
+    margin: 20px;
+}
+
+h2{
+    color: white;
+
+    margin-bottom: 20px;
+}
+
+button{
+    padding: 20px 30px;
+}
