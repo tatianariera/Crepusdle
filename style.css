@@ -90,40 +90,35 @@ input{
   'opsz' 24
 }
 
-.botones{
-    display: flex;
-    align-items: center;
+.tabla{
     justify-content: center;
+    margin: 20px;
 }
 
-/* Contenedor de las sugerencias */
-.sugerencias{
-    position: absolute;
-    top: 100%; /* Coloca las sugerencias justo debajo del input */
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-top: none; /* Elimina el borde entre el input y las sugerencias */
-    border-radius: 0 0 5px 5px;
-    z-index: 10; /* Asegura que esté por encima de otros elementos */
-    max-height: 150px; /* Limita la altura de la lista */
-    overflow-y: auto; /* Permite el scroll si hay muchas sugerencias */
+table{
+    border-collapse: separate;
+    border-spacing: 15px;
+    font-size: 1.2rem;
 }
 
-/* Estilo de cada sugerencia */
-.sugerencias div {
+th{
+    border-bottom: 4px solid;
     padding: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f0f0f0;
+    width: 100px;
 }
 
-.sugerencias div:last-child {
-    border-bottom: none;
+td{
+    border: 2px solid;
+    border-radius: 5px;
+    height: 100px;
+    width: 100px;
+    padding: 0; /* Elimina el espacio interno en las celdas */
+    vertical-align: middle; /* Centra el contenido verticalmente */
 }
 
-/* Efecto hover en las sugerencias */
-.sgerencias div:hover {
-    background-color: #f8f8f8;
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Permite que la imagen se deforme para ajustarse */
+    display: block;  /* Evita márgenes internos adicionales */
 }
