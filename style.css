@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playfair", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}
+
+body{
+    background-image: url(/img/Crepusculo.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;   
+}
+
+.contenedor{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+h1{
+    text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7);
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+h2{
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+button{
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #555;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover{
+    background-color: rgb(61, 47, 77);
+    transform: scale(1.05);
+}
+
+.titulo {
+    font-family: "Cinzel", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+p{
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+.juego{
+    border: 5px solid rgb(61, 47, 77);
+    border-radius: 20px;
+    margin: 20px;
+    background: rgba(149, 148, 148, 0.111);
+    padding: 15px;
+}
+
+input{
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.botones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor de las sugerencias */
+.sugerencias{
+    position: absolute;
+    top: 100%; /* Coloca las sugerencias justo debajo del input */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none; /* Elimina el borde entre el input y las sugerencias */
+    border-radius: 0 0 5px 5px;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    max-height: 150px; /* Limita la altura de la lista */
+    overflow-y: auto; /* Permite el scroll si hay muchas sugerencias */
+}
+
+/* Estilo de cada sugerencia */
+.sugerencias div {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sugerencias div:last-child {
+    border-bottom: none;
+}
+
+/* Efecto hover en las sugerencias */
+.sgerencias div:hover {
+    background-color: #f8f8f8;
+}
