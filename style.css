@@ -89,41 +89,76 @@ input{
   'GRAD' 0,
   'opsz' 24
 }
+/* Estilo para el contenedor de sugerencias */
+.sugerencias {
+    border: 1px solid #555; /* Bordes en un tono oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%; /* Asegura que las sugerencias se ajusten al ancho del input */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con algo de transparencia */
+    color: white; /* Texto en blanco */
+    z-index: 1000;
+    margin-top: 5px; /* Separación de la caja de texto */
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
+    top: 100%; /* Coloca las sugerencias justo debajo del input */
+    left: 0; /* Alinea las sugerencias con el borde izquierdo del input */
+}
 
-.botones{
+/* Estilo para el contenedor de sugerencias */
+.sugerencias {
+    border: 1px solid transparent; /* Borde transparente por defecto */
+    border-radius: 8px; /* Bordes redondeados */
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%; /* Asegura que las sugerencias se ajusten al ancho del input */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con algo de transparencia */
+    color: white; /* Texto en blanco */
+    z-index: 1000;
+    margin-top: 5px; /* Separación de la caja de texto */
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra suave */
+    top: 100%; /* Coloca las sugerencias justo debajo del input */
+    left: 0; /* Alinea las sugerencias con el borde izquierdo del input */
+    display: none; /* Oculta las sugerencias por defecto */
+}
+
+/* Mostrar las sugerencias solo cuando haya elementos */
+.sugerencias.mostrar {
+    display: block; /* Muestra las sugerencias */
+    border: 1px solid #555; /* Muestra el borde cuando hay sugerencias */
+}
+
+/* Estilo para cada sugerencia individual */
+.sugerencias div {
+    padding: 10px;
+    font-size: 1rem; /* Tamaño de fuente coherente con el resto */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+}
+
+/* Efecto hover para las sugerencias */
+.sugerencias div:hover {
+    background-color: rgba(61, 47, 77, 0.8); /* Fondo más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Efecto de aumento */
+}
+
+/* Si no hay resultados, mostrar un mensaje amigable */
+.sugerencias .no-resultados {
+    padding: 10px;
+    font-size: 1rem;
+    color: #ccc; /* Color suave para el texto de "no hay resultados" */
+    text-align: center;
+}
+
+/* Asegurarse de que el contenedor de botones tenga posición relativa */
+.botones {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Contenedor de las sugerencias */
-.sugerencias{
-    position: absolute;
-    top: 100%; /* Coloca las sugerencias justo debajo del input */
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-top: none; /* Elimina el borde entre el input y las sugerencias */
-    border-radius: 0 0 5px 5px;
-    z-index: 10; /* Asegura que esté por encima de otros elementos */
-    max-height: 150px; /* Limita la altura de la lista */
-    overflow-y: auto; /* Permite el scroll si hay muchas sugerencias */
-}
-
-/* Estilo de cada sugerencia */
-.sugerencias div {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.sugerencias div:last-child {
-    border-bottom: none;
-}
-
-/* Efecto hover en las sugerencias */
-.sgerencias div:hover {
-    background-color: #f8f8f8;
+    position: relative; /* Añadido para el posicionamiento relativo */
+    width: 100%; /* Asegura que el input y las sugerencias se alineen */
 }
