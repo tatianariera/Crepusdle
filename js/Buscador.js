@@ -4,92 +4,184 @@ import { personajesCrepusculo } from "./Personajes.js";
 // Elementos del DOM
 const input = document.getElementById("inputPersonajes");
 const suggestions = document.getElementById("sugerencias");
+const boton = document.getElementById("botonJugar");
+const tabla = document.querySelector(".tabla table tbody");
+const empezarJuego = document.getElementById("empezarJuego");
+const restoJuego = document.getElementById("restoJuego");
+const intentosDisplay = document.getElementById("intentos");
 
-// Variables para manejar la selección con el teclado
-let selectedIndex = -1; // Índice de la sugerencia seleccionada
+// Variables del juego
+let personajeGanador;
+let intentos = 0;
+const maxIntentos = 5; // Número máximo de intentos
+
+// Seleccionamos un personaje aleatorio para que el usuario lo adivine
+function seleccionarPersonajeGanador() {
+  personajeGanador =
+    personajesCrepusculo[
+      Math.floor(Math.random() * personajesCrepusculo.length)
+    ];
+  let genero = document.getElementById("sexo");
+  genero.innerHTML = "Sexo: " + personajeGanador.genero;
+}
 
 // Función para filtrar y mostrar sugerencias
 function filterCharactersByInitial(initial) {
-    suggestions.innerHTML = ""; // Limpia las sugerencias previas
-    suggestions.classList.remove("mostrar"); // Oculta las sugerencias por defecto
+  suggestions.innerHTML = "";
+  suggestions.classList.remove("mostrar");
 
-    if (!initial) return; // Si no hay texto, no hacemos nada
+  if (!initial) return;
 
-    // Filtra los personajes que comienzan con la inicial ingresada
-    const filtered = personajesCrepusculo.filter(personaje =>
-        personaje.nombre.toLowerCase().startsWith(initial.toLowerCase())
-    );
+  const filtered = personajesCrepusculo.filter((personaje) =>
+    personaje.nombre.toLowerCase().startsWith(initial.toLowerCase())
+  );
 
-    // Si hay personajes filtrados, los mostramos
-    filtered.forEach((personaje, index) => {
-        const suggestionItem = document.createElement("div");
-        suggestionItem.textContent = personaje.nombre;
+  filtered.forEach((personaje, index) => {
+    const suggestionItem = document.createElement("div");
+    suggestionItem.textContent = personaje.nombre;
 
-        // Añadir clase para indicar la sugerencia seleccionada
-        if (index === selectedIndex) {
-            suggestionItem.classList.add("selected");
-        }
-
-        // Al hacer clic en una sugerencia, completar el input con el nombre
-        suggestionItem.addEventListener("click", () => {
-            input.value = personaje.nombre; // Completa el input con el nombre del personaje
-            suggestions.innerHTML = ""; // Oculta las sugerencias al seleccionar un personaje
-            suggestions.classList.remove("mostrar"); // Oculta las sugerencias
-            selectedIndex = -1; // Reinicia la selección
-        });
-
-        // Agregar la sugerencia a la lista
-        suggestions.appendChild(suggestionItem);
+    suggestionItem.addEventListener("click", () => {
+      input.value = personaje.nombre;
+      suggestions.innerHTML = "";
+      suggestions.classList.remove("mostrar");
     });
 
-    // Si no hay coincidencias, mostramos un mensaje
-    if (filtered.length === 0) {
-        const noResults = document.createElement("div");
-        noResults.textContent = "No se encontraron personajes.";
-        suggestions.appendChild(noResults);
-    }
+    suggestions.appendChild(suggestionItem);
+  });
 
-    // Mostrar las sugerencias si hay resultados
-    if (filtered.length > 0) {
-        suggestions.classList.add("mostrar"); // Muestra las sugerencias
-    }
+  if (filtered.length > 0) {
+    suggestions.classList.add("mostrar");
+  }
 }
 
 // Detectar cambios en el input
 input.addEventListener("input", () => {
-    filterCharactersByInitial(input.value); // Filtra las sugerencias mientras se escribe
+  filterCharactersByInitial(input.value);
 });
 
-// Navegar por las sugerencias con las teclas
-input.addEventListener("keydown", (event) => {
-    const items = suggestions.querySelectorAll("div");
-    if (event.key === "ArrowDown") {
-        // Mover hacia abajo
-        if (selectedIndex < items.length - 1) {
-            selectedIndex++;
-            filterCharactersByInitial(input.value); // Re-renderizar las sugerencias
-        }
-    } else if (event.key === "ArrowUp") {
-        // Mover hacia arriba
-        if (selectedIndex > 0) {
-            selectedIndex--;
-            filterCharactersByInitial(input.value); // Re-renderizar las sugerencias
-        }
-    } else if (event.key === "Enter" && selectedIndex >= 0) {
-        // Seleccionar la sugerencia con Enter
-        const selectedItem = items[selectedIndex];
-        input.value = selectedItem.textContent; // Completa el input con el nombre del personaje
-        suggestions.innerHTML = ""; // Oculta las sugerencias
-        suggestions.classList.remove("mostrar"); // Oculta las sugerencias
-        selectedIndex = -1; // Reinicia la selección
-    }
+// Función para comparar los atributos de los personajes
+function compararPersonajes(personajeSeleccionado) {
+  const atributos = [
+    "nombre",
+    "genero",
+    "tipo",
+    "peliculas",
+    "estadoFinal",
+    "pareja",
+  ];
+
+  return atributos.map((atributo) => {
+    const valorSeleccionado = personajeSeleccionado[atributo];
+    const valorGanador = personajeGanador[atributo];
+
+    // Convertir ambos valores a cadenas de texto
+    const valorSeleccionadoStr =
+      valorSeleccionado !== undefined && valorSeleccionado !== null
+        ? valorSeleccionado.toString().toLowerCase()
+        : "";
+    const valorGanadorStr =
+      valorGanador !== undefined && valorGanador !== null
+        ? valorGanador.toString().toLowerCase()
+        : "";
+
+    return valorSeleccionadoStr === valorGanadorStr;
+  });
+}
+
+// Función para agregar el personaje seleccionado a la tabla
+function agregarPersonajeATabla(nombrePersonaje) {
+  const personaje = personajesCrepusculo.find(
+    (p) => p.nombre.toLowerCase() === nombrePersonaje.toLowerCase()
+  );
+
+  if (!personaje) return; // Si no se encuentra el personaje, no hacer nada
+
+  // Crear una nueva fila para la tabla
+  const fila = document.createElement("tr");
+
+  // Obtener la comparación de los atributos
+  const comparacion = compararPersonajes(personaje);
+
+  // Añadir los atributos de la fila y comparar
+  fila.innerHTML = `
+    <td><img src="${personaje.imagen}" alt="${
+    personaje.nombre
+  }" style="width:100%; height:100%; object-fit: cover;"></td>
+    <td style="background-color: ${comparacion[0] ? "green" : "red"}">${
+    personaje.nombre
+  }</td>
+    <td style="background-color: ${comparacion[1] ? "green" : "red"}">${
+    personaje.genero
+  }</td>
+    <td style="background-color: ${comparacion[2] ? "green" : "red"}">${
+    personaje.tipo
+  }</td>
+    <td style="background-color: ${comparacion[3] ? "green" : "red"}">${
+    personaje.peliculas
+  }</td>
+    <td style="background-color: ${comparacion[4] ? "green" : "red"}">${
+    personaje.estadoFinal
+  }</td>
+    <td style="background-color: ${comparacion[5] ? "green" : "red"}">${
+    personaje.pareja
+  }</td>
+  `;
+
+  // Añadir la fila a la tabla
+  tabla.appendChild(fila);
+
+  // Limpiar el input después de agregar
+  input.value = "";
+  suggestions.innerHTML = "";
+  suggestions.classList.remove("mostrar");
+
+  // Aumentar el contador de intentos
+  intentos++;
+  intentosDisplay.textContent = `Número de intentos: ${intentos}`;
+
+  // Comprobar si el usuario ha adivinado correctamente
+  if (comparacion.every((v) => v === true)) {
+    alert("¡Felicidades! Has adivinado el personaje correctamente.");
+    reiniciarJuego();
+  } else if (intentos >= maxIntentos) {
+    alert(
+      "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre
+    );
+    reiniciarJuego();
+  }
+}
+
+// Detectar clic en el botón para agregar el personaje
+boton.addEventListener("click", () => {
+  const nombrePersonaje = input.value.trim();
+  agregarPersonajeATabla(nombrePersonaje);
 });
+
+// Mostrar la parte del juego cuando se haga clic en el botón "JUGAR"
+document.getElementById("jugar").addEventListener("click", function () {
+  empezarJuego.style.display = "none";
+  restoJuego.style.display = "block";
+  seleccionarPersonajeGanador(); // Seleccionar el personaje ganador al iniciar el juego
+});
+
+// Reiniciar el juego
+function reiniciarJuego() {
+  // Limpiar la tabla y los intentos
+  tabla.innerHTML = "";
+  intentos = 0;
+  intentosDisplay.textContent = `Número de intentos: ${intentos}`;
+  input.value = "";
+  suggestions.innerHTML = "";
+  suggestions.classList.remove("mostrar");
+
+  // Seleccionar un nuevo personaje ganador
+  seleccionarPersonajeGanador();
+}
 
 // Ocultar las sugerencias si el usuario hace clic fuera del contenedor de sugerencias
 document.addEventListener("click", (event) => {
-    if (!event.target.closest(".botones")) {
-        suggestions.innerHTML = ""; // Limpia las sugerencias al hacer clic fuera
-        suggestions.classList.remove("mostrar"); // Oculta las sugerencias
-        input.value = ""; // Borra el contenido del input
-    }
+  if (!event.target.closest(".botones")) {
+    suggestions.innerHTML = "";
+    suggestions.classList.remove("mostrar");
+  }
 });
