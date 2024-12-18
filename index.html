@@ -24,62 +24,57 @@
     <div class="contenedor">
       <h1 class="titulo">CREPUSDLE</h1>
 
-      <div>
+      <div id="empezarJuego">
         <h2>Adivina los personajes de la Saga Crepúsculo</h2>
-
-        <button type="submit">JUGAR</button>
+        <button id="jugar" type="button">JUGAR</button>
       </div>
 
-      <div class="juego">
-        <h2>¡Adivina el personaje de hoy!</h2>
+      <div id="restoJuego">
 
-        <p>Sexo:</p>
+        <div class="divInicial">
+          <h2>¡Adivina el personaje de hoy!</h2>
 
-        <p style="visibility: hidden"></p>
+          <p id="sexo">Sexo:</p>
 
-        <p>Número de intentos: 0</p>
-      </div>
-      
-      <div class="botones">
-        <input
-          id="inputPersonajes"
-          type="text"
-          autocomplete="off"
-          placeholder="Escribe el nombre del personaje"
-        />
-        <div id="sugerencias" class="sugerencias"></div>
-        <button type="button">
-          <span class="material-symbols-outlined"> brightness_3</span>
-        </button>
-      </div>
-   
+          <p id="intentos">Número de intentos: 0</p>
+        </div>
+
+        <div class="botones">
+          <input
+            id="inputPersonajes"
+            type="text"
+            autocomplete="off"
+            placeholder="Escribe el nombre del personaje"
+          />
+          <div id="sugerencias" class="sugerencias"></div>
+          <button id="botonJugar" type="button">
+            <span class="material-symbols-outlined"> brightness_3</span>
+          </button>
+        </div>
 
         <div class="tabla">
-            <table>
-                <tr>
-                    <th>Imágen</th>
-                    <th>Nombre</th>
-                    <th>Género</th>
-                    <th>Tipo</th>
-                    <th>Películas</th>
-                    <th>Estado final</th>
-                    <th>Pareja</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Bella</td>
-                    <td>Mujer</td>
-                    <td>Humano</td>
-                    <td>5</td>
-                    <td>Viva</td>
-                    <td>Sí</td>
-                </tr>
-            </table>
+          <table>
+            <thead>
+            <tr>
+              <th>Imágen</th>
+              <th>Nombre</th>
+              <th>Género</th>
+              <th>Tipo</th>
+              <th>Películas</th>
+              <th>Estado final</th>
+              <th>Pareja</th>
+            </tr>
+            <tbody>
+
+            </tbody>
+          </thead>
+          </table>
+          </div>
         </div>
       </div>
-    </div>
+  
 
     <script src="js/Buscador.js" type="module"></script>
-  <script src="js/Juego.js"></script>
+    <script src="js/Empezamos.js"></script>
   </body>
 </html>

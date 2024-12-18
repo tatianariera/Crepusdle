@@ -30,6 +30,10 @@ body{
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+#restoJuego{
+    display: none;
+}
+
 h1{
     text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7);
     font-size: 4rem;
@@ -69,13 +73,15 @@ p{
     text-align: left;
 }
 
-.juego{
+.divInicial{
     border: 5px solid rgb(61, 47, 77);
     border-radius: 20px;
     margin: 20px;
     background: rgba(149, 148, 148, 0.111);
     padding: 15px;
 }
+
+
 
 input{
     padding: 20px;
@@ -114,13 +120,6 @@ td{
     width: 100px;
     padding: 0; /* Elimina el espacio interno en las celdas */
     vertical-align: middle; /* Centra el contenido verticalmente */
-}
-
-img{
-    width: 100%;
-    height: 100%;
-    object-fit: fill; /* Permite que la imagen se deforme para ajustarse */
-    display: block;  /* Evita márgenes internos adicionales */
 }
 
 /* Estilo para el contenedor de sugerencias */
