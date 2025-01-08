@@ -139,16 +139,45 @@ function agregarPersonajeATabla(nombrePersonaje) {
   intentos++;
   intentosDisplay.textContent = `Número de intentos: ${intentos}`;
 
+  let texto;
+
   // Comprobar si el usuario ha adivinado correctamente
   if (comparacion.every((v) => v === true)) {
-    alert("¡Felicidades! Has adivinado el personaje correctamente.");
+
+    texto = "¡Felicidades! Has adivinado el personaje correctamente.";
+
+    personajeAdivinar(texto);
+
     reiniciarJuego();
+
   } else if (intentos >= maxIntentos) {
-    alert(
-      "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre
-    );
+
+    texto = "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre;
+
+    personajeAdivinar(texto);
+
     reiniciarJuego();
   }
+}
+
+//Añadimos la imagen del personaje a adivinar cuando se gana o se pierde el juego.
+function personajeAdivinar(texto){
+  const imagenUrl = personajeGanador.imagen;
+  const div = document.getElementById("divInicial");
+  const img = document.createElement("img");
+  const p = document.createElement("p");
+
+  img.src = imagenUrl;
+  img.alt = personajeGanador.nombre;
+
+  img.style.width = "300px";
+
+  p.textContent = texto;
+  p.style.textAlign = "center";
+
+  div.innerHTML = "";
+  div.appendChild(img);
+  div.appendChild(p);
 }
 
 // Detectar clic en el botón para agregar el personaje
