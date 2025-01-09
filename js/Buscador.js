@@ -148,15 +148,11 @@ function agregarPersonajeATabla(nombrePersonaje) {
 
     sobreescribirDiv(texto);
     
-    reiniciarJuego();
-
   } else if (intentos >= maxIntentos) {
 
     texto = "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre;
 
     sobreescribirDiv(texto);
-
-    reiniciarJuego();
 
   }
 }
@@ -176,10 +172,6 @@ function sobreescribirDiv(texto){
     <p style="text-align: center;">${texto}</p>
   `;
 
-  // Restauramos el contenido original después de 5 segundos
-  setTimeout(() => {
-    div.innerHTML = contenidoOriginal;
-  }, 5000); // 5000 milisegundos = 5 segundos
 }
 
 // Detectar clic en el botón para agregar el personaje
@@ -194,20 +186,6 @@ document.getElementById("jugar").addEventListener("click", function () {
   restoJuego.style.display = "block";
   seleccionarPersonajeGanador(); // Seleccionar el personaje ganador al iniciar el juego
 });
-
-// Reiniciar el juego
-function reiniciarJuego() {
-  // Limpiar la tabla y los intentos
-  tabla.innerHTML = "";
-  intentos = 0;
-  intentosDisplay.textContent = `Número de intentos: ${intentos}`;
-  input.value = "";
-  suggestions.innerHTML = "";
-  suggestions.classList.remove("mostrar");
-
-  // Seleccionar un nuevo personaje ganador
-  seleccionarPersonajeGanador();
-}
 
 // Ocultar las sugerencias si el usuario hace clic fuera del contenedor de sugerencias
 document.addEventListener("click", (event) => {
