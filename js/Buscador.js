@@ -176,11 +176,9 @@ function sobreescribirDiv(texto){
     <p style="text-align: center;">${texto}</p>
   `;
 
-  // Reiniciar el juego después de 5 segundos
+  // Restauramos el contenido original después de 5 segundos
   setTimeout(() => {
-    // Restauramos el contenido original después de 5 segundos
     div.innerHTML = contenidoOriginal;
-    //reiniciarJuego(); // Llamamos a reiniciar el juego
   }, 5000); // 5000 milisegundos = 5 segundos
 }
 
