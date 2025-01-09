@@ -139,16 +139,47 @@ function agregarPersonajeATabla(nombrePersonaje) {
   intentos++;
   intentosDisplay.textContent = `Número de intentos: ${intentos}`;
 
+  let texto;
+
   // Comprobar si el usuario ha adivinado correctamente
   if (comparacion.every((v) => v === true)) {
-    alert("¡Felicidades! Has adivinado el personaje correctamente.");
+
+    texto = "¡Felicidades! Has adivinado el personaje correctamente.";
+
+    sobreescribirDiv(texto);
+    
     reiniciarJuego();
+
   } else if (intentos >= maxIntentos) {
-    alert(
-      "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre
-    );
+
+    texto = "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre;
+
+    sobreescribirDiv(texto);
+
     reiniciarJuego();
+
   }
+}
+
+//Hacemos una funcion para sobreescribir el div inicial para poner la imagen del personaje a adivinar.
+function sobreescribirDiv(texto){
+  //Seleccionamos el div
+  const div = document.getElementById("divInicial");
+
+  //Guardamos el contenido original
+  const contenidoOriginal = div.innerHTML;
+
+  //Sobreescribimos el contenido del div
+  div.innerHTML = `
+    <img src="${personajeGanador.imagen}" alt="${personajeGanador.nombre}"
+    style="width: 300px;"/>
+    <p style="text-align: center;">${texto}</p>
+  `;
+
+  // Restauramos el contenido original después de 5 segundos
+  setTimeout(() => {
+    div.innerHTML = contenidoOriginal;
+  }, 5000); // 5000 milisegundos = 5 segundos
 }
 
 // Detectar clic en el botón para agregar el personaje
