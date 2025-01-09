@@ -146,38 +146,42 @@ function agregarPersonajeATabla(nombrePersonaje) {
 
     texto = "¡Felicidades! Has adivinado el personaje correctamente.";
 
-    personajeAdivinar(texto);
-
+    sobreescribirDiv(texto);
+    
     reiniciarJuego();
 
   } else if (intentos >= maxIntentos) {
 
     texto = "¡Se acabaron los intentos! El personaje era: " + personajeGanador.nombre;
 
-    personajeAdivinar(texto);
+    sobreescribirDiv(texto);
 
     reiniciarJuego();
+
   }
 }
 
-//Añadimos la imagen del personaje a adivinar cuando se gana o se pierde el juego.
-function personajeAdivinar(texto){
-  const imagenUrl = personajeGanador.imagen;
+//Hacemos una funcion para sobreescribir el div inicial para poner la imagen del personaje a adivinar.
+function sobreescribirDiv(texto){
+  //Seleccionamos el div
   const div = document.getElementById("divInicial");
-  const img = document.createElement("img");
-  const p = document.createElement("p");
 
-  img.src = imagenUrl;
-  img.alt = personajeGanador.nombre;
+  //Guardamos el contenido original
+  const contenidoOriginal = div.innerHTML;
 
-  img.style.width = "300px";
+  //Sobreescribimos el contenido del div
+  div.innerHTML = `
+    <img src="${personajeGanador.imagen}" alt="${personajeGanador.nombre}"
+    style="width: 300px;"/>
+    <p style="text-align: center;">${texto}</p>
+  `;
 
-  p.textContent = texto;
-  p.style.textAlign = "center";
-
-  div.innerHTML = "";
-  div.appendChild(img);
-  div.appendChild(p);
+  // Reiniciar el juego después de 5 segundos
+  setTimeout(() => {
+    // Restauramos el contenido original después de 5 segundos
+    div.innerHTML = contenidoOriginal;
+    //reiniciarJuego(); // Llamamos a reiniciar el juego
+  }, 5000); // 5000 milisegundos = 5 segundos
 }
 
 // Detectar clic en el botón para agregar el personaje
